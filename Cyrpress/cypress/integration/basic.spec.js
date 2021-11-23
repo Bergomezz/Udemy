@@ -2,7 +2,7 @@
 
 describe('Cypress basics', () => {
     const testPage = 'https://wcaquino.me/cypress/componentes.html'
-    it.only('Should visit a page and assrt title', () => {        
+    it.only('Should visit a page and assert title', () => {        
         cy.visit(testPage)
         function assertiva(titulo,string){
             cy.title()
@@ -13,11 +13,25 @@ describe('Cypress basics', () => {
         // console.log(title)
         assertiva('Campo de Treinamento', 'Campo')
 
+        let syncTitle
+
+        cy.title().then(title => {
+            console.log(title)
+            cy.get('#formNome').type(title)
+
+            syncTitle = title
+        })
+
+        cy.get('[data-cy=dataSobrenome]').then($el => {
+            $el.val(syncTitle)
+        })
+
+        cy.get('#elementosForm\\:sugestoes').then($el => {
+            cy.wrap($el).type(syncTitle)
+        })
 
     })
 
-    //TODO Imprimir o log no console
-    //TODO Escrever o title em um campo de texto
 
     it('Should find and interact with an element', () => {
         cy.visit(testPage)
