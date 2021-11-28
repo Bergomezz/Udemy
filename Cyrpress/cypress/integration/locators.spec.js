@@ -21,4 +21,11 @@ describe('Work with basic elements', () => {
         cy.get('table#tabelaUsuarios tr:contains(\'Doutorado\'):eq(0) td:eq(6) > input').type('Teste')
         cy.get('table#tabelaUsuarios tr:contains("Doutorado"):eq(0) td:eq(6) > input')
     })
+
+    it.only('using Xpath', () => {
+        cy.xpath("//input[contains(@onclick, \'Francisco\')]")
+        cy.xpath('//table[@id="tabelaUsuarios"]//td[contains(.,"Francisco")]/following-sibling::td/input')
+        cy.xpath('//table[@id="tabelaUsuarios"]//td[contains(.,"Francisco")]/..//input[@type="text"]')
+        cy.xpath("//td[contains(., 'Usuario A')]/following-sibling::td[contains(., 'Mestrado')]/..//input[@type='text']").type('Deu certo?')
+    })
 })
