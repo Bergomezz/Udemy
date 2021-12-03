@@ -12,11 +12,11 @@ describe('Work with alert', () => {
     })
 
     it('Alert', () => {
-        cy.get('#alert').click()
-        cy.on('window:alert', msg => {
-            console.log(msg)
-            expect(msg).to.be.equal('Alert Simples')
-        })
+        // cy.get('#alert').click()
+        // cy.on('window:alert', msg => {
+        //     expect(msg).to.be.equal('Alert Simples')
+        // })
+        cy.clickAlert('#alert', 'Alert Simples')
     })
 
     it('Alert with mock', () => {
@@ -27,7 +27,7 @@ describe('Work with alert', () => {
         })
     })
 
-    it.only('Confirm', () => {
+    it('Confirm', () => {
         cy.on('window:confirm', msg => {
             console.log(msg)
             expect(msg).to.be.equal('Confirm Simples')
@@ -38,7 +38,7 @@ describe('Work with alert', () => {
         cy.get('#confirm').click()
     })
 
-    it.only('Deny', () => {
+    it('Deny', () => {
         cy.on('window:confirm', msg => {
             console.log(msg)
             expect(msg).to.be.equal('Confirm Simples')
@@ -50,7 +50,7 @@ describe('Work with alert', () => {
         cy.get('#confirm').click()
     })
 
-    it.only('Prompt', () => {
+    it('Prompt', () => {
         cy.window().then(win => {
             cy.stub(win, 'prompt').returns('42')
         })
@@ -63,7 +63,7 @@ describe('Work with alert', () => {
         cy.get('#prompt').click()
     })
 
-    it.only('Validando mensagens', () => {
+    it('Validando mensagens', () => {
         const stub = cy.stub().as('Alerta')
         cy.on('window:alert', stub)
         cy.get('#formCadastrar').click()
