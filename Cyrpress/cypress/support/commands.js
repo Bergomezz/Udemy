@@ -23,6 +23,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
 import loc from './locators'
 
 Cypress.Commands.add('clickAlert', (locator, message) => {
@@ -43,9 +44,50 @@ Cypress.Commands.add('loginBernardo', () => {
     cy.login('bernardo@teste.com.br', '123456')
 })
 
+Cypress.Commands.add('getToken', (user, pass) => {
+    cy.request({
+        method: 'POST',
+        url: '/signin',
+        body: {
+            email: user,
+            redirecionar: false,
+            senha: pass,
+        }
+    }).its('body.token').should('not.be.empty')
+    .then(token => {
+        return token
+    })
+})
 
+Cypress.Commands.add('getTokenUsuarioCriado', () => {
+    cy.getToken('bernardo@teste.com.br', '123456')
+})
 
 Cypress.Commands.add('resetarContas', () => {
     cy.get(loc.MENU.SETTINGS).click()
     cy.get(loc.MENU.RESETAR).click()
+})
+
+Cypress.Commands.add('resetRest', (token) => {
+    cy.getTokenUsuarioCriado()
+    cy.request({
+        url: '/reset',
+        method: 'GET',
+        headers: { Authorization: `JWT ${token}`},
+    }).its('status').should('be.equal', 200)
+})
+
+Cypress.Commands.add('getContaByName', nome => {
+    cy.getToken('bernardo@teste.com.br', '123456').then(token => {
+        cy.request({
+            method: 'GET',
+            url: `/contas`,
+            headers: { Authorization: `JWT ${token}` },
+            qs: {
+                nome: nome,
+            }
+        }).then(res => {
+            return res.body[0].id
+        })
+    })
 })

@@ -3,7 +3,7 @@
 import loc from '../../support/locators';
 import '../../support/commandsContas';
 import '../../support/commandsMovimentacao';
-import { get } from 'lodash';
+
 
 describe('Starting a new real application', () => {
     const aplicacaoPagina = 'https://barrigareact.wcaquino.me/'
@@ -12,6 +12,10 @@ describe('Starting a new real application', () => {
         cy.visit(aplicacaoPagina)
         cy.loginBernardo()
         cy.resetarContas()
+    })
+
+    beforeEach(() => {
+        cy.get(loc.MENU.HOME).click()
     })
 
     it('Inserting bills', () => {
@@ -23,7 +27,7 @@ describe('Starting a new real application', () => {
 
     it('Amended bills', () => {
         cy.entrandoAbaConta()
-        cy.xpath(loc.CONTAS.FN_XP_BTN_ALTERAR('Aluguel')).click()
+        cy.xpath(loc.CONTAS.FN_XP_BTN_ALTERAR('Conta para alterar')).click()
         cy.get(loc.CONTAS.NOME)
             .clear()
             .type('Aluguel casa')
@@ -34,7 +38,7 @@ describe('Starting a new real application', () => {
 
     it('Inserting repeated bills', () => {
         cy.entrandoAbaConta()
-        cy.get(loc.CONTAS.NOME).type('Aluguel casa')
+        cy.get(loc.CONTAS.NOME).type('Conta mesmo nome')
         cy.get(loc.CONTAS.BTN_SALVAR).click()
         cy.get(loc.MESSAGE).should('contain', 'status code 400')
     })
@@ -50,11 +54,24 @@ describe('Starting a new real application', () => {
 
     it('Should get balance', () => {
         cy.get(loc.MENU.HOME).click()
-        cy.xpath(loc.SALDO.FN_XP_SALDO_CONTA('Aluguel casa')).should('contain', '123')
+        cy.xpath(loc.SALDO.FN_XP_SALDO_CONTA('Conta para saldo')).should('contain', '534')
+
+        cy.get(loc.MENU.EXTRATO).click()
+        cy.xpath(loc.EXTRATO.FN_XP_ALTERAR_ELEMENTO('Movimentacao 1, calculo saldo')).click()
+        
+        cy.get(loc.MOVIMENTACAO.DESCRICAO).should('have.value', 'Movimentacao 1, calculo saldo')
+        cy.wait(3000)
+        cy.get(loc.MOVIMENTACAO.STATUS).click()
+        cy.wait(1000)
+        cy.get(loc.MOVIMENTACAO.BTN_SALVAR_MOV).click()
+        cy.get(loc.MESSAGE).should('contain', 'sucesso')
+
+        cy.get(loc.MENU.HOME).click()
+        cy.xpath(loc.SALDO.FN_XP_SALDO_CONTA('Conta para saldo')).should('contain', '4.034,00')
     })
     it('Removing moviments', () => {
         cy.get(loc.MENU.EXTRATO).click()
-        cy.xpath(loc.EXTRATO.FN_XP_REMOVER_ELEMENTO('Desc')).click()
+        cy.xpath(loc.EXTRATO.FN_XP_REMOVER_ELEMENTO('Movimentacao para exclusao')).click()
         cy.get(loc.MESSAGE).should('contain', 'sucesso!')
     })
 })
