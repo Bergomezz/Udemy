@@ -6,9 +6,9 @@ describe('Starting a new real application with backends', () => {
     before(() => {
         //cy.loginBernardo()
         cy.getTokenUsuarioCriado()
-            .then(tkn => {
-                token = tkn
-            })
+            // .then(tkn => {
+            //     token = tkn
+            // })
     })
 
     beforeEach(() => {
@@ -20,7 +20,7 @@ describe('Starting a new real application with backends', () => {
         cy.request({
             url: "/contas",
             method: "POST",
-            headers: { Authorization: `JWT ${token}` },
+            // headers: { Authorization: `JWT ${token}` },
             body: {
             nome: "Conta via rest",
             }
@@ -39,7 +39,7 @@ describe('Starting a new real application with backends', () => {
                 cy.request({
                     url: `/contas/${contaId}`,
                     method: 'PUT',
-                    headers: { Authorization: `JWT ${token}` },
+                    // headers: { Authorization: `JWT ${token}` },
                     body: {
                         nome: 'Conta alterada via rest'
                     }
@@ -55,7 +55,7 @@ describe('Starting a new real application with backends', () => {
         cy.request({
             url: "/contas",
             method: "POST",
-            headers: { Authorization: `JWT ${token}` },
+            // headers: { Authorization: `JWT ${token}` },
             body: {
             nome: "Conta mesmo nome",
             },
@@ -74,7 +74,7 @@ describe('Starting a new real application with backends', () => {
             cy.request({
                 url: '/transacoes',
                 method: 'POST',
-                headers: { Authorization: `JWT ${token}` },
+                // headers: { Authorization: `JWT ${token}` },
                 body: {
                     conta_id: contaId,
                     data_pagamento: Cypress.moment().add({days: 1}).format('DD/MM/YYYY'),
@@ -95,7 +95,7 @@ describe('Starting a new real application with backends', () => {
         cy.request({
             url: '/saldo',
             method: 'GET',
-            headers: {Authorization: `JWT ${token}`},
+            // headers: {Authorization: `JWT ${token}`},
         }).then(res => {
             let saldoConta = null
             res.body.forEach(c => {
@@ -106,14 +106,14 @@ describe('Starting a new real application with backends', () => {
         cy.request({
             method: 'GET',
             url: '/transacoes',
-            headers: {Authorization: `JWT ${token}`},
+            // headers: {Authorization: `JWT ${token}`},
             qs: { descricao: 'Movimentacao 1, calculo saldo' },
         }).then(res => {
             console.log(res);
             cy.request({
                 url: `/transacoes/${res.body[0].id}`,
                 method: 'PUT',
-                headers: {Authorization: `JWT ${token}`},
+                // headers: {Authorization: `JWT ${token}`},
                 body: {
                     status: true,
                     data_transacao: Cypress.moment(res.body[0].data_transacao).format('DD/MM/YYYY'),
@@ -130,7 +130,7 @@ describe('Starting a new real application with backends', () => {
         cy.request({
             url: '/saldo',
             method: 'GET',
-            headers: {Authorization: `JWT ${token}`},
+            // headers: {Authorization: `JWT ${token}`},
         }).then(res => {
             let saldoConta = null
             res.body.forEach(c => {
@@ -140,6 +140,17 @@ describe('Starting a new real application with backends', () => {
         })
     })
     it('Removing moviments', () => {
-        
+        cy.request({
+            url: '/transacoes',
+            method: 'GET',
+            // headers: {Authorization: `JWT ${token}`},
+            qs: { descricao: "Movimentacao para exclusao"},
+        }).then(res => {
+            cy.request({
+                url: `/transacoes/${res.body[0].id}`,
+                method: 'DELETE',
+                // headers: {Authorization: `JWT ${token}`},
+            }).its('status').should('be.equal', 204)
+        })
     })
 })
