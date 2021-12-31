@@ -45,7 +45,7 @@ describe('Starting a new real application', () => {
 
     it('Inserting moviments', () => {
         cy.acessarMovimentacao()
-        cy.adicionarMovimentacao('Desc', '123', 'Inter')
+        cy.adicionarMovimentacao('Desc', '123', 'Inter', 'Conta para movimentacoes')
         cy.get(loc.MESSAGE).should('contain', 'Movimentação inserida com sucesso!')
 
         cy.get(loc.EXTRATO.LINHAS).should('have.length', 7)
