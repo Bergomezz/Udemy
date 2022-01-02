@@ -18,6 +18,20 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MENU.HOME).click()
     })
 
+    it('Should test the responsiveness', () => {
+        cy.get('[data-test=menu-home] > .fas').should('exist')
+            .and('be.visible')
+        cy.viewport(500, 700)
+        cy.get('[data-test=menu-home] > .fas').should('exist')
+            .and('be.not.visible')
+        cy.viewport('iphone-5')
+        cy.get('[data-test=menu-home] > .fas').should('exist')
+            .and('be.not.visible')
+        cy.viewport('ipad-2')
+        cy.get('[data-test=menu-home] > .fas').should('exist')
+            .and('be.visible')
+    })
+
     it('Inserting bills', () => {
         cy.route({
             method: 'POST',
@@ -196,7 +210,7 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MESSAGE).should('contain', 'sucesso!')
     })
 
-    it.only('Should validate data send to create an account', () => {
+    it('Should validate data send to create an account', () => {
         const reqStub = cy.stub()
 
         cy.route({
@@ -231,4 +245,24 @@ describe('Should test at a functional level', () => {
         })
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso!')
     })
+
+    it('Should test colors', () => {
+        cy.route({
+            method: 'GET',
+            url: '/extrato/**',
+            response: [
+                {"conta":"Conta para movimentacoes","id":921609,"descricao":"Receita paga","envolvido":"AAA","observacao":null,"tipo":"REC","data_transacao":"2021-12-30T03:00:00.000Z","data_pagamento":"2021-12-30T03:00:00.000Z","valor":"-1500.00","status":true,"conta_id":990586,"usuario_id":26655,"transferencia_id":null,"parcelamento_id":null},
+                {"conta":"Conta com movimentacao","id":921610,"descricao":"Receita pendente","envolvido":"BBB","observacao":null,"tipo":"REC","data_transacao":"2021-12-30T03:00:00.000Z","data_pagamento":"2021-12-30T03:00:00.000Z","valor":"-1500.00","status":false,"conta_id":990587,"usuario_id":26655,"transferencia_id":null,"parcelamento_id":null},
+                {"conta":"Conta para saldo","id":921611,"descricao":"Despesa paga","envolvido":"CCC","observacao":null,"tipo":"DESP","data_transacao":"2021-12-30T03:00:00.000Z","data_pagamento":"2021-12-30T03:00:00.000Z","valor":"3500.00","status":true,"conta_id":990588,"usuario_id":26655,"transferencia_id":null,"parcelamento_id":null},
+                {"conta":"Conta para extrato","id":921614,"descricao":"Despesa pendente","envolvido":"FFF","observacao":null,"tipo":"DESP","data_transacao":"2021-12-30T03:00:00.000Z","data_pagamento":"2021-12-30T03:00:00.000Z","valor":"-220.00","status":false,"conta_id":990589,"usuario_id":26655,"transferencia_id":null,"parcelamento_id":null}
+            ]
+        })
+
+        cy.get(loc.MENU.EXTRATO).click()
+        cy.xpath(loc.EXTRATO.FN_XP_LINHA('Receita paga')).should('have.class', 'receitaPaga')
+        cy.xpath(loc.EXTRATO.FN_XP_LINHA('Receita pendente')).should('have.class', 'receitaPendente')
+        cy.xpath(loc.EXTRATO.FN_XP_LINHA('Despesa paga')).should('have.class', 'despesaPaga')
+        cy.xpath(loc.EXTRATO.FN_XP_LINHA('Despesa pendente')).should('have.class', 'despesaPendente')
+    })
+
 })
