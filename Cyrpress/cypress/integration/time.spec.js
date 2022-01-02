@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('Working with clock time', () => {
+describe('Work with time', () => {
 
     const testPage = "https://wcaquino.me/cypress/componentes.html";
 
