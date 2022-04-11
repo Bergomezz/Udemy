@@ -10,3 +10,4 @@ Cypress.Commands.add('assertResults', () => {
     expect(rows.length).to.be.at.least(1)
   })
 })
+
