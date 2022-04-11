@@ -13,9 +13,7 @@ describe('Code duplication bad practice - Sample 3', () => {
     Cypress._.times(3, () => {
       cy.search('cypress.io')
 
-      cy.get('.table-row').then(rows => {
-        expect(rows.length).to.be.at.least(1)
-      })
+      cy.assertResults()
     })
   })
 })
