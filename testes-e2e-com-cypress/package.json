@@ -6,8 +6,10 @@
   "scripts": {
     "lint": "eslint cypress/**/*.js",
     "lint:fix": "eslint cypress/**/*.js --fix",
+    "open": "cypress open",
+    "open:tablet": "cypress open --config viewportWidth=767,viewportHeight=480",
     "test": "cypress run",
-    "open": "cypress open"
+    "test:tablet": "cypress run --config viewportWidth=767,viewportHeight=480 --spec cypress/integration/authenticatedScenarios.spec.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +17,7 @@
   "devDependencies": {
     "cypress": "^8.2.0",
     "cypress-file-upload": "^5.0.8",
+    "cypress-iframe": "^1.0.1",
     "cypress-mailosaur": "^2.3.3",
     "eslint": "^7.32.0",
     "eslint-plugin-cypress": "^2.11.3",
