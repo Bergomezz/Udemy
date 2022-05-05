@@ -36,7 +36,7 @@ Cypress.Commands.add('clickAlert', (locator, message) => {
 Cypress.Commands.add('login', (email, pass) => {
     cy.visit('https://barrigareact.wcaquino.me/')
     cy.get(loc.LOGIN.USER).type(email)
-    cy.get(loc.LOGIN.PASSWORD).type(pass)
+    cy.get(loc.LOGIN.PASSWORD).type(pass, { log: false })
     cy.get(loc.LOGIN.BTN_LOGIN).click()
     cy.get(loc.MESSAGE).should('contain', 'Bem vindo')
 })
