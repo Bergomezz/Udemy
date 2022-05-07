@@ -1,0 +1,35 @@
+{
+	"name": "automatedstcypress",
+	"version": "1.0.0",
+	"description": "Automated Software Testing with Cypress",
+	"main": "index.js",
+	"scripts": {
+		"test": "cypress run",
+		"open": "cypress open",
+		"prettier": "prettier --write .",
+		"prettier:check": "prettier --check ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Bergomezz/AutomatedSTCypress.git"
+	},
+	"keywords": [
+		"testing",
+		"cypress",
+		"automation"
+	],
+	"author": "Bernardo",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Bergomezz/AutomatedSTCypress/issues"
+	},
+	"homepage": "https://github.com/Bergomezz/AutomatedSTCypress#readme",
+	"dependencies": {
+		"cypress": "^9.5.4",
+		"cypress-cucumber-preprocessor": "^4.3.1",
+		"del": "^6.0.0",
+		"faker": "^5.5.3",
+		"ladash": "^1.2.0",
+		"prettier": "^2.6.2"
+	}
+}

@@ -1,0 +1,7 @@
+{
+	"baseUrl": "http://zero.webappsecurity.com/",
+	"reporter": "cypress-mochawesome-reporter",
+	"videos": false,
+	"defaultCommandTimeout": 10000,
+	"watchForFileChenges": false
+}

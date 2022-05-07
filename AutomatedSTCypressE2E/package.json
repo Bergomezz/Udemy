@@ -1,0 +1,28 @@
+{
+	"name": "automatedstcypresse2e",
+	"version": "1.0.0",
+	"description": "end to end cypress test",
+	"main": "index.js",
+	"scripts": {
+		"test": "cypress run",
+		"cy:open": "cypress open",
+		"prettier": "prettier --write .",
+		"prettier:check": "prettier --check ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Bergomezz/AutomatedSTCypressE2E.git"
+	},
+	"keywords": [],
+	"author": "Bernardo",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Bergomezz/AutomatedSTCypressE2E/issues"
+	},
+	"homepage": "https://github.com/Bergomezz/AutomatedSTCypressE2E#readme",
+	"dependencies": {
+		"cypress": "^9.6.0",
+		"faker": "^5.5.3",
+		"prettier": "^2.6.2"
+	}
+}
