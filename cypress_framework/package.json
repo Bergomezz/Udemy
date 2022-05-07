@@ -1,12 +1,30 @@
 {
   "name": "cypress_framework",
   "version": "1.0.0",
-  "description": "",
+  "description": "Automation Framework with Cypress",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cypress run",
+    "cy:run": "npx cypress run --record --key 74916916-b0cc-4881-b1ff-5c9e6a5b1982",
+    "cy:open": "cypress open",
+    "prettier": "prettier --write .",
+    "prettier:check": "prettier --check .",
+    "cy:update-snapshots": "cypress run --env updateSnapshots=true"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "Automation",
+    "Framework",
+    "Cypress",
+    "Dashboard"
+  ],
+  "author": "Bernardo",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^9.6.0",
+    "cypress-mochawesome-reporter": "^3.0.1",
+    "prettier": "^2.6.2"
+  },
+  "devDependencies": {
+    "cypress-image-snapshot": "^4.0.1"
+  }
 }
