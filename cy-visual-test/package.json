@@ -1,12 +1,24 @@
 {
-  "name": "cy-visual-test",
-  "version": "1.0.0",
-  "description": "visual regression testing using cypress",
-  "main": "index.js",
-  "scripts": {
-    "test": "cypress run"
-  },
-  "keywords": ["cypress", "visual testing", "snapshots"],
-  "author": "Bernardo",
-  "license": "ISC"
+	"name": "cy-visual-test",
+	"version": "1.0.0",
+	"description": "visual regression testing using cypress",
+	"main": "index.js",
+	"scripts": {
+		"test": "cypress run",
+		"cy:open": "cypress open",
+		"prettier": "prettier --write .",
+		"prettier:check": "prettier --check ."
+	},
+	"keywords": [
+		"cypress",
+		"visual testing",
+		"snapshots"
+	],
+	"author": "Bernardo",
+	"license": "ISC",
+	"dependencies": {
+		"cypress": "^9.6.1",
+		"cypress-image-snapshot": "^4.0.1",
+		"prettier": "^2.6.2"
+	}
 }
