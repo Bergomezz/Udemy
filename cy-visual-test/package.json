@@ -7,7 +7,10 @@
 		"test": "cypress run",
 		"cy:open": "cypress open",
 		"prettier": "prettier --write .",
-		"prettier:check": "prettier --check ."
+		"prettier:check": "prettier --check .",
+		"cy:update-snapshots": "cypress run --env updateSnapshots=true",
+		"cy:test-with-reporter": "cypress run --reporter cypress-image-snapshot/reporter",
+		"cy:test-no-failure": "cypress run --env failOnSnapshotDiff=false"
 	},
 	"keywords": [
 		"cypress",
