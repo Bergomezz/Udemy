@@ -1,4 +1,5 @@
 import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command'
+import '@percy/cypress'
 
 addMatchImageSnapshotCommand({
 	failureThreshold: 0.0,

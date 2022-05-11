@@ -10,7 +10,8 @@
 		"prettier:check": "prettier --check .",
 		"cy:update-snapshots": "cypress run --env updateSnapshots=true",
 		"cy:test-with-reporter": "cypress run --reporter cypress-image-snapshot/reporter",
-		"cy:test-no-failure": "cypress run --env failOnSnapshotDiff=false"
+		"cy:test-no-failure": "cypress run --env failOnSnapshotDiff=false",
+		"cy:percy": "percy exec -- cypress run"
 	},
 	"keywords": [
 		"cypress",
@@ -20,6 +21,8 @@
 	"author": "Bernardo",
 	"license": "ISC",
 	"dependencies": {
+		"@percy/cli": "^1.1.3",
+		"@percy/cypress": "^3.1.1",
 		"cypress": "^9.6.1",
 		"cypress-image-snapshot": "^4.0.1",
 		"prettier": "^2.6.2"
