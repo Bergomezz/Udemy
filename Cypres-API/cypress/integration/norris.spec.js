@@ -1,11 +1,14 @@
 describe('REST API test with Cypress', () => {
-	it('API test - validate headers', () => {
+	it('API test - test chalenger', () => {
 		cy.request({
 			method: 'GET',
 			url: 'https://api.chucknorris.io/jokes/categories',
-		}).then(response => {
-			cy.writeFile('cypress/fixtures/norrisjoke.json', response.body)
 		})
+			.as('joke')
+			.then(response => {
+				cy.writeFile('cypress/fixtures/norrisjoke.json', response.body)
+			})
+		cy.get('@joke').its('status').should('equal', 200)
 	})
 	it('API test - using fixture to create a json file', () => {
 		cy.request({
